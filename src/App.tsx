@@ -55,17 +55,17 @@ function App() {
   return (
     <div className="App">
       <input
-        value={x}
-        onChange={(e) => {
-          const value = Number(e.target.value);
-          setX(value);
-        }}
-      />
-      <input
         value={y}
         onChange={(e) => {
           const value = Number(e.target.value);
           setY(value);
+        }}
+      />
+      <input
+        value={x}
+        onChange={(e) => {
+          const value = Number(e.target.value);
+          setX(value);
         }}
       />
       <p>Selected word: {getSelectedWord(x, y)}</p>
