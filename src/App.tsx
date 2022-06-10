@@ -4,42 +4,43 @@ import './App.css';
 import words from './board.json';
 
 const coordinates = [
-  [-5, -4],
-  [-4, -4],
-  [-4, -3],
-  [-5, -3],
-  [-5, -2],
-  [-3, -2],
-  [-3, -4],
-  [-2, -4],
-  [-2, -1],
-  [-5, -1],
+  [-5, 4],
+  [-4, 4],
+  [-4, 3],
+  [-5, 3],
+  [-5, 2],
+  [-3, 2],
+  [-3, 4],
+  [-2, 4],
+  [-2, 1],
+  [-5, 1],
   [-5, 0],
   [-1, 0],
-  [-1, -4],
-  [0, -4],
+  [-1, 4],
+  [0, 4],
   [0, 0],
   [1, 0],
-  [1, -4],
-  [2, -4],
+  [1, 4],
+  [2, 4],
   [2, 0],
 ];
 
-const validateSelectedWord = (x: number, y: number) =>
-  x < 0 || y < 0 || !x || !y || x > 45 || y > 45;
+const validateSelectedWord = (n1: number, n2: number) =>
+  n1 < 0 || n2 < 0 || n1 > 45 || n2 > 45;
 
-const getSelectedWord = (x: number, y: number) => {
-  x--;
-  y--;
-  return validateSelectedWord(x, y) ? 'Input the coordinates' : words[x][y];
+const getSelectedWord = (n1: number, n2: number) => {
+  n1--;
+  n2--;
+  return validateSelectedWord(n1, n2) ? 'Input the coordinates' : words[n1][n2];
 };
 
-const createWord = (x: number, y: number) => {
+const createWord = (y: number, x: number) => {
   x--;
   y--;
   if (validateSelectedWord(x, y)) return 'Input the coordinates';
 
   let word = '';
+  console.log(3);
   for (let [addX, addY] of coordinates) {
     if (validateSelectedWord(x + addX, y + addY))
       return 'Input the coordinates';
@@ -55,21 +56,21 @@ function App() {
   return (
     <div className="App">
       <input
-        value={y}
-        onChange={(e) => {
-          const value = Number(e.target.value);
-          setY(value);
-        }}
-      />
-      <input
         value={x}
         onChange={(e) => {
           const value = Number(e.target.value);
           setX(value);
         }}
       />
-      <p>Selected word: {getSelectedWord(x, y)}</p>
-      <p>Generated word: {createWord(x, y)}</p>
+      <input
+        value={y}
+        onChange={(e) => {
+          const value = Number(e.target.value);
+          setY(value);
+        }}
+      />
+      <p>Selected word: {getSelectedWord(y, x)}</p>
+      <p>Generated word: {createWord(y, x)}</p>
     </div>
   );
 }
