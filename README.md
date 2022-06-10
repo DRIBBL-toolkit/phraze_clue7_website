@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+App built for Clue-7 of Phraze competition with the intent of creating words using the visual clue
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -44,4 +44,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
 # phraze_clue7_website
