@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import words from './board.json';
+import Table from './Table';
 
 const coordinates = [
   [-5, 4],
@@ -44,9 +45,26 @@ const createWord = (y: number, x: number) => {
   for (let [addX, addY] of coordinates) {
     if (validateSelectedWord(x + addX, y + addY))
       return 'Input the coordinates';
-    word += words[x + addX][y + addY][0];
+    word += words[y + addY][x + addX][0];
   }
   return word;
+};
+
+const bottomLeftWord = (y: number, x: number) => {
+  x--;
+  y--;
+  if (validateSelectedWord(x, y)) return 'Input the coordinates';
+  console.log(x, y);
+  if (validateSelectedWord(x - 5, y + 4)) return 'Input the coordinates';
+  return words[y + 4][x - 5];
+};
+
+const topRightWord = (y: number, x: number) => {
+  x--;
+  y--;
+  if (validateSelectedWord(x, y)) return 'Input the coordinates';
+  if (validateSelectedWord(x + 2, y)) return 'Input the coordinates';
+  return words[y][x + 2];
 };
 
 function App() {
@@ -71,6 +89,9 @@ function App() {
       />
       <p>Selected word: {getSelectedWord(y, x)}</p>
       <p>Generated word: {createWord(y, x)}</p>
+      <p>Bottom left word: {bottomLeftWord(y, x)}</p>
+      <p>Top right word: {topRightWord(y, x)}</p>
+      <Table />
     </div>
   );
 }
