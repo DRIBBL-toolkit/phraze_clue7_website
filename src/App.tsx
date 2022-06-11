@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import words from './board.json';
@@ -27,7 +27,7 @@ const coordinates = [
 ];
 
 const validateSelectedWord = (n1: number, n2: number) =>
-  n1 < 0 || n2 < 0 || n1 > 45 || n2 > 45;
+  n1 < 0 || n2 < 0 || n1 >= 45 || n2 >= 45;
 
 const getSelectedWord = (n1: number, n2: number) => {
   n1--;
@@ -54,7 +54,6 @@ const bottomLeftWord = (y: number, x: number) => {
   x--;
   y--;
   if (validateSelectedWord(x, y)) return 'Input the coordinates';
-  console.log(x, y);
   if (validateSelectedWord(x - 5, y + 4)) return 'Input the coordinates';
   return words[y + 4][x - 5];
 };
@@ -67,9 +66,36 @@ const topRightWord = (y: number, x: number) => {
   return words[y][x + 2];
 };
 
+const findPos = (word: string) => {
+  for (let i = 0; i < 45; i++) {
+    for (let j = 0; j < 45; j++) {
+      if (words[i][j] == word) return { x: i, y: j };
+    }
+  }
+  return { x: -1, y: -1 };
+};
 function App() {
   const [x, setX] = useState(1);
   const [y, setY] = useState(1);
+
+  useEffect(() => {
+    let doubleWords: string[] = [];
+    for (const row of words) {
+      doubleWords = [
+        ...doubleWords,
+        ...row.filter((word) => word.includes('/')),
+      ];
+    }
+    for (const doubleWord of doubleWords) {
+      const { x, y } = findPos(doubleWord);
+      console.log(
+        `${doubleWord}: BL - ${bottomLeftWord(
+          x + 1,
+          y + 1
+        )} -- TR ${topRightWord(x + 1, y + 1)}`
+      );
+    }
+  }, []);
 
   return (
     <div className="App">
